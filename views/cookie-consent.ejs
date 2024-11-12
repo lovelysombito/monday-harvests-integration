@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Harvest <> monday.com - Cookie Consent</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"
+        ></script>
+
+        <style>
+            * {
+                font-family: Avenir Next W02, Helvetica, Arial, sans-serif;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-size: 16px;
+            }
+            body {
+                background-color: #f1f3f4;
+            }
+            .container {
+                padding: 30px;
+                margin-top: 60px;
+                width: 700px;
+                background-color: #fff;
+                border-radius: 5px;
+            }
+            .header {
+                font-size: 30px;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+            .content {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+            .button-container {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+            .btn {
+                width: 200px;
+            }
+            .close-btn {
+                cursor: pointer;
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">Cookie Consent</div>
+            <div class="content">
+                We use cookies to maintain your session during the authorisation process and are necessary for the application. By clicking "I Agree", you consent to our use of cookies.
+            </div>
+            <div class="button-container">
+                <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                >
+                    I Disagree
+                </button>
+                <button type="button" class="btn btn-primary" onclick="onAcceptCookie()">I Agree</button>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                     <div class="modal-body">
+                        If you do not agree, you will be unable to use this application. Click "Return" to return back to monday.com.
+                    </div>
+                    <div class="modal-footer" style="display: unset">
+                        <div class="button-container">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="closeCurrentTab()">Return</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const token = '<%= token  %>';
+
+            const onAcceptCookie = async () => {
+                const updateResponse = await axios.post(`/authorise/update-cookie-consent`, {token});
+                if (updateResponse.status === 200 && updateResponse.data?.oauthUrl) {
+                    window.location.href = updateResponse.data.oauthUrl;
+                }
+            };
+            const closeCurrentTab = () => {
+                history.back();
+            }
+        </script>
+    </body>
+</html>

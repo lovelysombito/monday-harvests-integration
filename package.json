@@ -1,0 +1,58 @@
+{
+  "name": "harvest-monday",
+  "version": "0.0.1",
+  "description": "monday.com integration with Harvest",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "concurrently \"npm run server\" \"npm run expose\"",
+    "server": "nodemon ./src/index.js",
+    "server-with-debugger": "nodemon --delay 100ms --exec 'fuser -k 9229/tcp; node --inspect=0.0.0.0:9229 ./src/app.js'",
+    "expose": "ngrok http 3001 --subdomain harvestmonday"
+  },
+  "keywords": [
+    "monday.com",
+    "harvest"
+  ],
+  "author": "Mitchell Hudson (mitchell@upstreamtech.io)",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.335.0",
+    "@jacktaylorgroup/app-billing": "^0.1.5",
+    "axios": "^0.28.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.9",
+    "esm": "^3.2.25",
+    "express": "^4.19.2",
+    "express-group-routes": "^1.1.0",
+    "express-session": "^1.17.2",
+    "form-data": "^4.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "luxon": "^2.3.1",
+    "mysql2": "^2.2.5",
+    "node-cron": "^3.0.3",
+    "querystring": "^0.2.0",
+    "randomstring": "^1.1.5",
+    "sequelize": "^6.3.5",
+    "sqs-consumer": "^7.1.0",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "chai": "^5.1.0",
+    "concurrently": "^5.3.0",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "jest": "^27.5.1",
+    "mocha": "*",
+    "ngrok": "^5.0.0-beta.2",
+    "nodemon": "^2.0.6",
+    "sequelize-cli": "^6.2.0",
+    "sinon": "^17.0.1"
+  }
+}
